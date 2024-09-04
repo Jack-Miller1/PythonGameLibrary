@@ -1,0 +1,547 @@
+#game library
+
+'''
+Bobbi Lovstad
+Troy Springis
+Jack Miller
+last updated 4/20/2023
+
+A library of games for team infinity. Includes tic tac toe, go fish, rock paper scissors, and a text adventure.
+This programm was made for cis 121(introduction to programming) at mnsu.
+'''
+
+#imports
+import random
+
+#overall score tracking class
+class overallscore:
+	def __init__(self, RPS, TTT, Text, GF):
+		self.RPS = RPS
+		self.TTT = TTT
+		self.Text = Text
+		self.GF = GF
+	def setRPS(self):
+		self.RPS = self.RPS + 1
+		return self.RPS
+	def setTTT(self):
+		self.TTT = self.TTT+1
+		return self.TTT
+	def setText(self, new):
+		self.Text = new
+		return self.Text
+	def setGF(self):
+		self.GF = self.GF+1
+		return self.GF
+overallPlayer = overallscore(0,0,0,0)
+overallOpponent = overallscore(0,0,0,0)
+
+
+
+#main menu
+while True:
+	print("This game library includes 'rock paper scissors', 'tic tac toe', a 'text adventure', and 'go fish'")
+	game = str(input("enter which game you want to play: "))
+
+#game one Rock Paper Scissors
+	if game == "rock paper scissors":
+		RPSlist = ['rock', 'paper', 'scissors']
+		while True:
+			#game play
+			opponent = random.choice(RPSlist)
+			player =  input("enter 'rock', 'paper, or 'scissors' to play. enter 'reset' to reset the scores, or enter 'menu' to return to menu : ")
+				
+				
+				#house keeping
+			if(player == "reset"):
+				RPSscoreOpponent = 0
+				RPSscorePlayer = 0
+				print("player score is", RPSscorePlayer, "opponent score is", RPSscoreOpponent)
+				print("")
+		
+			elif(player == "menu"):
+				print("")
+				break
+				
+			
+			
+				#tie game
+			elif (player == opponent):	
+				print("your opponent chose", opponent, ", you chose", player)
+				print("tie game")
+				print("player score is", overallPlayer.RPS , "opponent score is", overallOpponent.RPS)
+				print("")
+				
+				
+				#player loses
+			elif(player == "rock" and opponent == "paper"):
+				winner = "computer"
+				print("your opponent chose", opponent, ", you chose", player)
+			
+			elif(player == "paper" and opponent == "scissors"):
+				winner = "computer"
+				print("your opponent chose", opponent, ", you chose", player)
+	
+				
+			elif(player == "scissors" and opponent == "rock"):
+				winner = "computer"
+				print("your opponent chose", opponent, ", you chose", player)
+				
+				#player winns
+			elif(opponent == "rock" and player == "paper"):
+				winner = "player"
+				print("your opponent chose", opponent, ", you chose", player)
+				
+			elif(opponent == "paper" and player == "scissors"):
+				winner = "player"
+				print("your opponent chose", opponent, ", you chose", player)
+				
+			elif(opponent == "scissors" and player == "rock"):
+				winner = "player"
+				print("your opponent chose", opponent, ", you chose", player)
+				
+		
+			#score tracker
+			if winner == "player":
+				overallPlayer.setRPS()
+				winner = 0
+				print("player score is", overallPlayer.RPS , "opponent score is", overallOpponent.RPS)
+				print("")
+	
+			elif winner == "computer":
+				overallOpponent.setRPS()
+				winner = 0
+				print("player score is", overallPlayer.RPS , "opponent score is", overallOpponent.RPS)
+				print("")
+	
+	
+#game two Text adventure
+	if game == "text adventure":
+		while True:
+			menu=input("Enter new game of main menu")
+			if menu=="main menu":
+				break
+			elif menu=="new game":
+				weapon = False
+				
+			# First Problem
+				def manEater():
+					actions=["Kill", "Run"]
+					global weapon
+					answer = ""
+					for x in actions:
+						answer = input("A massive man-eating spider appears and is hungry, would you like to Kill the spider or Run, the choice is yours: ")
+						if answer == "Kill":
+							weapon = True
+							print("You kill the spider with the pocket knife you always have handy in your backpack and you see the spider was hiding a door")
+						elif answer == "Run":
+							showRoom()
+						else:
+							print("You were too weak and the spider ate you")
+						
+				# Second Problem
+				def showRoom():
+					directions=["forward", "backward"]
+					global weapon
+					answer = ""
+					for x in directions:
+						answer = input("You open the door to discover a room filled with wallpaper made from human skin, would you like to move forward or backward:  ")
+						if answer == "backward":
+							intro()
+						elif answer == "forward":
+							manEater()
+			# Third Problem
+				def angryMan():
+					directions=["right", "left","backward"]
+					answer = ""
+					for x in directions:
+						answer = input("In the distance you hear an angry man yelling at you, where would you like to go, right, left, or forward: ")
+						if answer == "right":
+							print("Wrong Way! you walk into a small room filled with carbon monoxide and die")
+							Background()
+						elif answer == "left":
+							print("Congrats you found the way out and you won!")
+							Background()
+						elif answer == "backward":
+							intro()
+			# Fourth Problem
+				def apple():
+					directions=["forward","backward"]
+					answer = ""
+					for x in directions:
+						answer =input("You see a half eaten apple on the ground and realize you may not be alone, would you like to go forward or backward: ")
+						if answer == "forward":
+							print("Congrats you found a hostage tied with a key to get out and you are both safe")
+							quit()
+						elif answer == "backward":
+							showShadow()
+		
+			# Fifth Problem
+				def showShadow():
+					directions=["right", "backward"]
+					answer = ""
+					for x in directions:
+						answer = input("you see an odd shadow in the distance would you like to go right or forward: ")
+						if answer=="right":
+							apple()
+						if answer == "backward":
+							intro()
+		
+		
+			# sixth Problem
+				def intro():
+					directions=["right", "left","forward"]
+					answer = ""
+					for x in directions:
+						answer = input("you hit a crossroad, do you want to go left right or forward: ")
+						if answer == "left":
+							showShadow()
+						elif answer == "right":
+							showRoom()
+						elif answer == "forward":
+							angryMan()
+
+			#Background Story and Character identity 			
+					
+				if __name__ == "__main__":
+					#The textfile
+					adventureFile= open("adventure.txt", "w")
+					
+					print("Welcome to this Adventure Game")
+					print("In this game you are a world renowned traveler")
+					print("... However while exploring an old mansion in Germany, you get lost")
+					print("As you navigate this mansion, you will be faced with many crucial descisions")
+					print("Based on the decision you make, you will either advance towards the end of the game... or die")
+					print("Choose carefully, Good Luck!")
+					print("what would you like your character name to be")
+					character= input()
+					print("May the odds be ever in your favor," + character)
+					
+					#Output of character name onto file
+					adventureFile.write(character)
+					intro()
+					adventureFile.close()
+
+		
+
+					
+			
+		
+		
+#game three tic tac toe against 'dumb' computer
+	if game == "tic tac toe":
+				def initialize_game():
+					board = {1: " ", 2: " ", 3: " ",
+							4: " ", 5: " ", 6: " ",
+							7: " ", 8: " ", 9: " "}
+					return board
+
+				def print_board(board):
+					print(board[1] + "|" + board[2] + "|" + board[3])
+					print("-----")
+					print(board[4] + "|" + board[5] + "|" + board[6])
+					print("-----")
+					print(board[7] + "|" + board[8] + "|" + board[9])
+
+				def get_player_move(board):
+					while True:
+						move = int(input("Enter an open space number (1-9): "))
+						if board[move] == " ":
+							return move
+						else:
+							print("That space is already taken. Try again.")
+							continue
+
+				def get_computer_move(board):
+					empty_spaces = []
+					for position, value in board.items():
+						if value == " ":
+							empty_spaces.append(position)
+					if empty_spaces:
+						return random.choice(empty_spaces)
+					else:
+						return None
+
+				def check_win(board):
+					# check rows
+					if board[1] == board[2] == board[3] and board[1] != " ":
+						return board[1]
+					if board[4] == board[5] == board[6] and board[4] != " ":
+						return board[4]
+					if board[7] == board[8] == board[9] and board[7] != " ":
+						return board[7]
+
+					# check columns
+					if board[1] == board[4] == board[7] and board[1] != " ":
+						return board[1]
+					if board[2] == board[5] == board[8] and board[2] != " ":
+						return board[2]
+					if board[3] == board[6] == board[9] and board[3] != " ":
+						return board[3]
+
+					# check diagonals
+					if board[1] == board[5] == board[9] and board[1] != " ":
+						return board[1]
+					if board[3] == board[5] == board[7] and board[3] != " ":
+						return board[3]
+
+					return None
+
+				def tic_tac_toe():
+					#scoring
+					board = initialize_game()
+					print_board(board)
+					
+					while True:
+						# player's move
+						player_move = get_player_move(board)
+						board[player_move] = "X"
+						print_board(board)
+
+						# check for win
+						winner = check_win(board)
+						if winner:
+							print(f"{winner} wins!")
+							overallPlayer.setTTT()
+							print(f"Player: {overallPlayer.TTT} - Computer: {overallOpponent.TTT}")
+							break
+
+						# check for tie
+						if " " not in board.values():							
+							print("It's a tie!")
+							print(f"Player: {overallPlayer.TTT} - Computer: {overallOpponent.TTT}")
+							break
+
+						# computer's move
+						computer_move = get_computer_move(board)
+						if computer_move:
+							board[computer_move] = "O"
+							print("Computer's move:")							
+							print_board(board)
+
+						# check for win
+						winner = check_win(board)
+						if winner:
+							print(f"{winner} wins!")
+							overallOpponent.setTTT()
+							print(f"Player: {overallOpponent.TTT} - Computer: {overallPlayer.TTT}")
+							break
+
+						# check for tie
+						if " " not in board.values():
+							print("It's a tie!")
+							print(f"Player: {overallPlayer.TTT} - Computer: {overallOpponent.TTT}")
+							break
+						
+		#menu for tic tac toe
+	
+	while True:
+		playerInput = input("type 'new game' or 'menu' ")
+		if playerInput == "menu":
+			break
+				
+		elif playerInput == "new game":
+			tic_tac_toe()
+			
+
+
+# game four, go fish
+	if game == "go fish":
+		
+		class gofishhand:
+			def __init__ (self, name, hand, score1):
+				self.name = name
+				self.hand = hand
+				self.score1 = score1
+		
+				#draw at end of turn
+			def draw(self, deck):
+				if len(deck) > 0:
+					random1 = random.randrange(len(deck))
+					self.hand.append(deck[random1])
+					deck.pop(random1)
+				return(self.hand, deck)
+		
+				#if no cards in hand
+			def redraw(self, deck):
+				if len(deck) >= 5:
+					for x in range(0,5):
+						random1 = random.randrange(len(deck))
+						self.hand.append(deck[random1])
+						deck.pop(random1)	
+				else:
+					for x in range(0,len(deck)):
+						random1 = random.randrange(len(deck))
+						self.hand.append(deck[random1])
+						deck.pop(random1)
+				
+				return(self.hand, deck)
+		
+				#player scoreing mechanic
+			def score(self):
+				#make templist a dict. tempdict ={card: number of instances
+				cardlist = ["A","2","3","4","5","6","7","8","9","10","j","q","k"]
+				tempdict = {}
+		
+				for key in cardlist:
+					tempdict[key]= self.hand.count(key)
+				for key in tempdict:
+					if tempdict[key] > 1:
+						tempdict[key] = tempdict[key]- 2
+						self.score1 += 1
+		
+				#rebuild hand from tempdict
+				self.hand = []
+				for key in tempdict:
+					for x in range(0,tempdict[key]):
+						self.hand.append(key)
+
+				return (self.hand, self.score1)
+	
+		class gofishgame:
+			def __init__(self, player, opponent):
+				self.player = player
+				self.opponent = opponent
+
+				#deal at start of game
+			def deal(self,other, deck):
+				for x in range(0,7):
+					random1 = random.randrange(len(deck))
+					self.hand.append(deck[random1])
+					deck.pop(random1)		
+					random2 = random.randrange(len(deck))
+					other.hand.append(deck[random2])
+					deck.pop(random2)
+			
+				return(self.hand, other.hand, deck)
+		
+				#ask for a card
+			def ask(self, other): 
+				templist = []
+				ask1 = "go fish"
+		
+				if self.hand == other.hand:
+					for x in range(0,len(other.hand)):
+						self.hand = self.hand + other.hand
+					other.hand = []
+					ask1 = "no cards in " + other.name + "'s hand"
+	
+				elif self.name == "computer":
+					askcard = str(random.choice(self.hand))
+					print("computer score is " + str(self.score1))
+					print(self.name + " asked for " + str(askcard))
+					templist = []
+					for x in range(0,len(other.hand)):
+						if askcard == other.hand[x]:
+							self.hand.append(other.hand[x])
+							templist.append(x)
+							ask1 = "success"
+					for z in range(0,len(templist)):
+						other.hand.pop(templist[-1])
+						templist.pop(-1)
+				else:
+					print("your hand is " + str(self.hand) + " your score is " + str(self.score1)) 
+					askcard = str(input("what card would you like to ask for?: "))
+					for q in range(0,len(other.hand)):
+						if askcard == other.hand[q]:
+							self.hand.append(askcard)
+							templist.append(q)
+							ask1 = "success"
+					
+					for z in range(0,len(templist)):
+						other.hand.pop(templist[-1])
+						templist.pop(-1)
+					
+				return (self.hand, other.hand, ask1)
+	
+				#turn 
+			def turn(self, other):
+				while True:
+					if len(self.hand) > 0:
+						self.hand, other.hand, ask1 = gofishgame.ask(self, other)
+						print(ask1)
+						if ask1 == "success":
+							newhand, newscore = gofishhand.score(self)
+							self.hand = []
+							self.hand += newhand
+							self.score1 = 0
+							self.score1 += newscore
+						else:
+							break
+					else:
+						break
+				if len(self.hand) > 0:
+					gofishhand.draw(self, deck)
+					newhand, newscore = gofishhand.score(self)
+					self.hand = []
+					self.hand += newhand
+					self.score1 = 0
+					self.score1 += newscore	
+				else:
+					gofishhand.redraw(self, deck)
+					newhand, newscore = gofishhand.score(self)
+					self.hand = []
+					self.hand += newhand
+					self.score1 = 0
+					self.score1 += newscore
+			
+				return (self.hand, other.hand, self.score1)
+	
+
+	while True:	
+		gofishMenu =  str(input("input 'new game' to play or 'menu' to return to main menu: " )) 
+		if gofishMenu == "menu":
+			break
+
+		elif gofishMenu == "new game":	
+			deck = ["A","2","3","4","5","6","7","8","9","10","j","k","q","A","2","3","4","5","6","7","8","9","10","j","k","q","A","2","3","4","5","6","7","8","9","10","j","k","q","A","2","3","4","5","6","7","8","9","10","j","k","q"]
+			player = gofishhand("player", [], 0)                     		#input("enter your name: "),[],0 )
+			opponent = gofishhand("computer", [], 0)
+			gofishgame.deal(player,opponent,deck)
+			print(len(deck) + len(player.hand) + len(opponent.hand) + player.score1/2 + opponent.score1 / 2)		#remove once working
+				#opponent
+			newhand, newscore = gofishhand.score(opponent)
+			opponent.hand = []
+			opponent.hand += newhand
+			opponent.score1 = 0
+			opponent.score1 += newscore
+			print("computer score is " + str(opponent.score1)) 							
+
+				#player			
+			newhand, newscore = gofishhand.score(player)
+			player.hand = []
+			player.hand += newhand
+			player.score1 = 0
+			player.score1 += newscore
+			print("your hand is " + str(player.hand) + " and your score is "  + str(player.score1))
+			
+				#gameplay
+			while len(deck) != 0 or len(player.hand)!=0 or len(opponent.hand) !=0:
+				gofishgame.turn(player, opponent)
+				gofishgame.turn(opponent, player)
+				print(player.score1 + opponent.score1)			#remove once working
+				
+				#win conditions
+			if opponent.score1 > player.score1:
+				winner = "opponent wins"
+				overallOpponent.setGF()
+				print(overallOpponent.GF)
+			elif opponent.score1 < player.score1:
+				winner = "player wins"
+				overallPlayer.setGF()
+				print(overallPlayer.GF)
+			else:
+				winner = "tie game"
+			print(winner)
+			continue 
+			
+
+
+
+#on some iteratins of the game, there are cards left over and the score is going over 26. handlocking the code. 
+#score isnt matching how many cards are left
+
+
+
+ 
+
+#hello world
